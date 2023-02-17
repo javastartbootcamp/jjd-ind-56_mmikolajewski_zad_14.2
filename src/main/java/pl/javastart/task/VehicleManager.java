@@ -1,11 +1,6 @@
 package pl.javastart.task;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.InputMismatchException;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -32,16 +27,16 @@ public class VehicleManager {
 
     private int readOption() {
         System.out.println("Wybierz opcję:");
-        int option = scanner.nextInt();
+        int option = readInt();
         scanner.nextLine();
         return option;
     }
 
     private void printOption() {
         System.out.println("Dostępne opcje:");
-        System.out.println(" > Koniec programu:" + EXIT);
-        System.out.println(" > Dodaj nowy pojazd:" + ADD_VEHICLE);
-        System.out.println(" > Dokonaj przeglądu pojazdu z kolejki:" + INSPECT_VEHICLE);
+        System.out.println(" > Koniec programu - " + EXIT);
+        System.out.println(" > Dodaj nowy pojazd - " + ADD_VEHICLE);
+        System.out.println(" > Dokonaj przeglądu pojazdu z kolejki - " + INSPECT_VEHICLE);
     }
 
     private void evaluateOption(int option) {
@@ -83,32 +78,35 @@ public class VehicleManager {
 
     private Vehicle createNewVehicle() {
         System.out.println("Podaj typ pojazdu ( motocykl, samochód, samochód ciężarowy)");
-        String type = readString();
+        String type = scanner.nextLine();
         System.out.println("Podaj markę pojazdu");
-        String brand = readString();
+        String brand = scanner.nextLine();
         System.out.println("Podaj model pojazdu");
-        String model = readString();
+        String model = scanner.nextLine();
         System.out.println("Podaj rok produkcji");
-        int year = scanner.nextInt();
+        int year = readInt();
         scanner.nextLine();
         System.out.println("Podaj przebieg");
-        int mileage = scanner.nextInt();
+        int mileage = readInt();
         scanner.nextLine();
         System.out.println("Podaj numer VIN");
         String vin = scanner.nextLine();
         return new Vehicle(type, brand, model, year, mileage, vin);
     }
 
-    private String readString() {
-        String option = "";
-        try {
-            option = scanner.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Podałeś niepoprawny format");
-            scanner.nextLine();
+    private int readInt() {
+        boolean valid = true;
+        int option = -1;
+        while (valid) {
+            try {
+                option = scanner.nextInt();
+                valid = false;
+            } catch (InputMismatchException ex) {
+                System.out.println("Wprowadz liczbę");
+                scanner.nextLine();
+            }
         }
         return option;
-
     }
 
     private void askAndReplaceVehicle(Vehicle vehicle) {

@@ -7,11 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
         VehicleManager vehicleManager = new VehicleManager();
-        try {
-            vehicleManager.mainLoop();
-        } catch (InputMismatchException e) {
-            System.out.println("podałeś nieprawidłwoy format");
-        }
-
+        vehicleManager.mainLoop();
     }
 }

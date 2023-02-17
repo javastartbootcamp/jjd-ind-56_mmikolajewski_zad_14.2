@@ -1,8 +1,6 @@
 package pl.javastart.task;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class FileOperations {
@@ -22,13 +20,18 @@ public class FileOperations {
         LinkedList<Vehicle> linkedList = new LinkedList<>();
         Scanner scanner = new Scanner(fileName);
         try {
-            scanner = new Scanner(fileName);
+            scanner = new Scanner(new File(fileName));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] split = line.split(";");
-                Vehicle vehicle = new Vehicle(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5]);
-                linkedList.add(vehicle);
+                if (line != "") {
+                    String[] split = line.split(";");
+                    Vehicle vehicle = new Vehicle(split[0], split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5]);
+                    linkedList.add(vehicle);
+                }
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("Nie udało się odczytać pliku");
+
         } finally {
             scanner.close();
         }

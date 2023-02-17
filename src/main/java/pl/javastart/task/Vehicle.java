@@ -67,17 +67,18 @@ public class Vehicle {
         this.vin = vin;
     }
 
+    @SuppressWarnings("checkstyle:NeedBraces")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return year == vehicle.year && mileage == vehicle.mileage && Objects.equals(type, vehicle.type) && Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(vin, vehicle.vin);
+        return Objects.equals(vin, vehicle.vin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, brand, model, year, mileage, vin);
+        return Objects.hash(vin);
     }
 
     @Override
